@@ -1,14 +1,27 @@
 import { Menu, Container, Image, Icon } from "semantic-ui-react";
 import Link from "next/link";
+import {Router, useRouter} from 'next/router';
+import NProgress from 'nprogress';
+
+//These functions help display the progress bar
+Router.onRouteChangeStart = () => NProgress.start();
+Router.onRouteChangeComplete = () => NProgress.done();
+Router.onRouteChangeError = () => NProgress.done();
 
 function Header() {
+  const router = useRouter();
+  console.log(router);
   const user = false;
+
+  function isActive(route) {
+    return route === router.pathname;
+  }
 
   return (
   <Menu fluid id="menu" inverted={true}>
     <Container text>
       <Link href="/">
-        <Menu.Item header>
+        <Menu.Item header active={isActive('/')}>
           <Image 
             size="mini"
             src="/static/logo.svg"
@@ -19,7 +32,7 @@ function Header() {
       </Link>
 
       <Link href="/cart">
-        <Menu.Item header>
+        <Menu.Item header active={isActive('/cart')}>
           <Icon
             name="cart"
             size="large"
@@ -30,7 +43,7 @@ function Header() {
 
       {user &&
       <Link href="/create">
-        <Menu.Item header>
+        <Menu.Item header active={isActive('/create')}>
           <Icon
             name="add square"
             size="large"
@@ -42,7 +55,7 @@ function Header() {
 
       {user ? (<>
       <Link href="/account">
-        <Menu.Item header>
+        <Menu.Item header active={isActive('/account')}>
           <Icon
             name="user"
             size="large"
@@ -51,7 +64,7 @@ function Header() {
         </Menu.Item>
       </Link>
 
-      <Menu.Item>
+      <Menu.Item header >
         <Icon name="sign out" size="large"></Icon>
         Logout
       </Menu.Item>
@@ -59,7 +72,7 @@ function Header() {
       :
       (<>
       <Link href="/login">
-        <Menu.Item header>
+        <Menu.Item header active={isActive('/login')}>
           <Icon
             name="sign in"
             size="large"
@@ -69,7 +82,7 @@ function Header() {
       </Link>
 
       <Link href="/signup">
-        <Menu.Item header>
+        <Menu.Item header active={isActive('/signup')}>
           <Icon
             name="signup"
             size="large"
