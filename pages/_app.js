@@ -2,7 +2,8 @@
 /*This is where you would also place the layout*/
 //Even though layout is an html element here it renders the whole thing from Layout.js
 import App from "next/app";
-import Layout from "../components/_App/Layout"
+import Layout from "../components/_App/Layout";
+import Component from "semantic-ui-react";
 
 class MyApp extends App {
   render() {
@@ -10,7 +11,7 @@ class MyApp extends App {
     
     return (
       <Layout>
-        <Component/>
+        <Component />
       </Layout>
     );
   }
